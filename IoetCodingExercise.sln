@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoetPaymentConsole", "IoetPaymentConsole\IoetPaymentConsole.csproj", "{5B2EA921-2D7E-4DDA-9067-7518ED69EA66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoetPaymentService", "IoetPaymentService\IoetPaymentService.csproj", "{6E2314E2-2646-4401-AD23-DB505EDF8AED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoetPaymentServiceBase", "IoetPaymentServiceHelper\IoetPaymentServiceBase.csproj", "{68D27530-90B4-478E-8153-9A937061B614}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{73558930-4406-423A-8365-8164193AC13E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoetPaymentTest", "IoetPaymentTest\IoetPaymentTest.csproj", "{B74070E5-9713-448F-8C26-15464C7A1402}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B2EA921-2D7E-4DDA-9067-7518ED69EA66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B2EA921-2D7E-4DDA-9067-7518ED69EA66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B2EA921-2D7E-4DDA-9067-7518ED69EA66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B2EA921-2D7E-4DDA-9067-7518ED69EA66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E2314E2-2646-4401-AD23-DB505EDF8AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E2314E2-2646-4401-AD23-DB505EDF8AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E2314E2-2646-4401-AD23-DB505EDF8AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E2314E2-2646-4401-AD23-DB505EDF8AED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68D27530-90B4-478E-8153-9A937061B614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68D27530-90B4-478E-8153-9A937061B614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68D27530-90B4-478E-8153-9A937061B614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68D27530-90B4-478E-8153-9A937061B614}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B74070E5-9713-448F-8C26-15464C7A1402}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B74070E5-9713-448F-8C26-15464C7A1402}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B74070E5-9713-448F-8C26-15464C7A1402}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B74070E5-9713-448F-8C26-15464C7A1402}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B74070E5-9713-448F-8C26-15464C7A1402} = {73558930-4406-423A-8365-8164193AC13E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F958A06D-C488-4C69-A344-0D11A55AD8CD}
+	EndGlobalSection
+EndGlobal
