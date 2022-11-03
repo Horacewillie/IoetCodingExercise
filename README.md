@@ -48,7 +48,7 @@ SU: Sunday
 
 ### Built With
 
-This project was build it with:
+This project was built it with:
 
 - [MSTEST](https://github.com/microsoft/testfx)
 - [Moq](https://github.com/moq/moq4)
