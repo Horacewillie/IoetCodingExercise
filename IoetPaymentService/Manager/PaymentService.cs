@@ -1,4 +1,5 @@
 ﻿
+using IoetPaymentServiceBase;
 using IoetPaymentServiceBase.Utils;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,13 @@ namespace IoetPaymentService.Manager
 {
     public class PaymentService : IPaymentService
     {
+        private readonly IFileSystem _fileSystem;
+        public PaymentService(IFileSystem fileSystem)
+        {
+            _fileSystem = fileSystem;
+        }
         public async Task<Dictionary<string, decimal>> CalculateEmployeesSalary(string textFile)
         {
-            Dictionary<string, decimal> paymentStructure = new();
             Dictionary<string, decimal> employeesPaymentRecord = new();
 
             string[] timeIntervals = { "00:01-09:00", "09:01-18:00", "18:01-23:59" };
@@ -19,12 +24,16 @@ namespace IoetPaymentService.Manager
 
             decimal WeekEndExtraPay = 5;
 
-            for (var i = 0; i < timeIntervals.Length; i++)
-                paymentStructure[timeIntervals[i]] = payments[i];
+            Dictionary<string, decimal> paymentStructure = new()
+            {
+                { "00:01-09:00",  25 },
+                { "09:01-18:00", 15 },
+                { "18:01-23:59", 20 }
+            };
 
             try
             {
-                string[] dataInFile = await PaymentServiceHelper.ReadTextFile(textFile);
+                string[] dataInFile = await _fileSystem.ReadTextFile(textFile);
 
                 foreach (var data in dataInFile)
                 {
@@ -34,8 +43,8 @@ namespace IoetPaymentService.Manager
                     decimal employeeSalary = 0;
                     foreach (var workDetail in employeeWorkDetails)
                     {
-                        var workSchedule = workDetail[2..];
-                        (decimal amountPaidPerHour, int numberOfHoursWorked) = PaymentServiceHelper.CalculateNumberOfHoursWorkedAndAmount(workSchedule, timeIntervals, paymentStructure);
+                        var timeSchedule = workDetail[2..];
+                        (decimal amountPaidPerHour, int numberOfHoursWorked) = PaymentServiceHelper.CalculateNumberOfHoursWorkedAndAmount(timeSchedule, timeIntervals, paymentStructure);
 
                         string[] daysOfWeek = { "MO", "TU", "WE", "TH", "FR", "SA", "SU" };
 
@@ -57,8 +66,6 @@ namespace IoetPaymentService.Manager
                 throw;
             }
         }
-
-       
     }
 }
 
