@@ -1,6 +1,7 @@
 using AutoFixture;
 using IoetPaymentService.Manager;
 using IoetPaymentServiceBase;
+//using IoetPaymentTest.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -16,8 +17,7 @@ namespace IoetPaymentTest
         private readonly Mock<IFileSystem> _fileSystem;
 
         private readonly Mock<IPaymentService> _paymentService;
-
-        private const string filePath = "./TestData/EmployeesTestData.txt";
+        private readonly string filePath =  Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\", "./TestData/EmployeesTestData.txt");
 
         public PaymentServiceTest()
         {
@@ -25,12 +25,11 @@ namespace IoetPaymentTest
             _paymentService = new Mock<IPaymentService>();
         }
 
-        [DataRow(filePath)]
-        [DataTestMethod]
-        public void CalculateEmployeesSalary_GivenCorrectFile_ReturnCorrectValue(string textFile)
+        [TestMethod]
+        public void CalculateEmployeesSalary_GivenCorrectFile_ReturnCorrectValue()
         {
            
-            _paymentService.Setup(f => f.CalculateEmployeesSalary(textFile).Result)
+            _paymentService.Setup(f => f.CalculateEmployeesSalary(filePath).Result)
                 .Returns(new Dictionary<string, decimal> 
             {
                 {"AKAN", 215 },
@@ -43,9 +42,9 @@ namespace IoetPaymentTest
             var fileAccess = new Mock<FileSystem>();
             var paymentService = new PaymentService(fileAccess.Object);
 
-            Task<Dictionary<string, decimal>> response = paymentService.CalculateEmployeesSalary(textFile);
+            Task<Dictionary<string, decimal>> response = paymentService.CalculateEmployeesSalary(filePath);
 
-            Task<Dictionary<string, decimal>> result = _paymentService.Object.CalculateEmployeesSalary(textFile);
+            Task<Dictionary<string, decimal>> result = _paymentService.Object.CalculateEmployeesSalary(filePath);
 
             CollectionAssert.AreEquivalent(response.Result, result.Result);
 
@@ -57,15 +56,15 @@ namespace IoetPaymentTest
 
             Assert.AreEqual(result.Result.TryGetValue("EDDIE", out decimal eddie), response.Result.TryGetValue("EDDIE", out decimal eddiePay));
 
-            Assert.AreEqual(result.Result.TryGetValue("CYRIL", out decimal cyril), response.Result.TryGetValue("EDDIE", out decimal cyrilPay));
+            Assert.AreEqual(result.Result.TryGetValue("CYRIL", out decimal cyril), response.Result.TryGetValue("CYRIL", out decimal cyrilPay));
         }
 
 
-        [DataRow(filePath)]
-        [DataTestMethod]
-        public void GivenThatCorrectFileNameIsSupplied_ReturnFileContent(string textFile)
+
+        [TestMethod]
+        public void GivenThatCorrectFileNameIsSupplied_ReturnFileContent()
         {
-            _fileSystem.Setup(f => f.ReadTextFile(textFile).Result).Returns(new string[]
+            _fileSystem.Setup(f => f.ReadTextFile(filePath).Result).Returns(new string[]
             {
                 "AKAN=MO10:00-12:00,TU10:00-12:00,TH01:00-03:00,SA14:00-18:00,SU20:00-21:00",
                 "ROSCO=MO10:00-12:00,TH13:00-14:00,SU20:00-21:00",
@@ -76,9 +75,9 @@ namespace IoetPaymentTest
 
             var fileAccess = new FileSystem();
 
-            string[] response = fileAccess.ReadTextFile(textFile).Result;
+            string[] response = fileAccess.ReadTextFile(filePath).Result;
 
-            string[] result = _fileSystem.Object.ReadTextFile(textFile).Result;
+            string[] result = _fileSystem.Object.ReadTextFile(filePath).Result;
 
             CollectionAssert.AreEqual(response, result);
         }
