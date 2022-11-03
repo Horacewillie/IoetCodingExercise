@@ -18,7 +18,6 @@ namespace IoetPaymentTest
         private readonly Mock<IFileSystem> _fileSystem;
 
         private readonly Mock<IPaymentService> _paymentService;
-        private readonly string filePath =  Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\", "./TestData/EmployeesTestData.txt");
 
         public PaymentServiceTest()
         {
@@ -33,7 +32,7 @@ namespace IoetPaymentTest
         }
 
         [TestMethod]
-        public void CalculateEmployeesSalary_GivenCorrectFile_ReturnCorrectValue()
+        public void CalculateEmployeesSalary_IfCalculationIsRight_ReturnCorrectValue()
         {
            
             _paymentService.Setup(f => f.CalculateEmployeesSalary(It.IsAny<string>()).Result)
@@ -60,10 +59,28 @@ namespace IoetPaymentTest
             Assert.AreEqual(result.Result.TryGetValue("CYRIL", out decimal cyril), response.Result.TryGetValue("CYRIL", out decimal cyrilPay));
         }
 
+        [TestMethod]
+        public void CalculateEmployeesSalary_IfCalculationIsWrong_ReturnWrongValues()
+        {
+
+            _paymentService.Setup(f => f.CalculateEmployeesSalary(It.IsAny<string>()).Result)
+                .Returns(MockData.EmployeesNameAndSalaryWrongValues());
+
+
+            //var fileAccess = new Mock<FileSystem>();
+            var paymentService = new PaymentService(_fileSystem.Object);
+
+            Task<Dictionary<string, decimal>> response = paymentService.CalculateEmployeesSalary(It.IsAny<string>());
+
+            Task<Dictionary<string, decimal>> result = _paymentService.Object.CalculateEmployeesSalary(It.IsAny<string>());
+
+            CollectionAssert.AreNotEqual(response.Result, result.Result);
+        }
+
 
 
         [TestMethod]
-        public void GivenThatCorrectFileNameIsSupplied_ReturnContent()
+        public void ReadFileContent_ReturnContent()
         {
 
             _fileSystem.Setup(x => x.ReadTextFile(It.IsAny<string>())).Returns(MockData.EmployeesTestData());
@@ -73,5 +90,34 @@ namespace IoetPaymentTest
             Assert.IsNotNull(result.Result);
         }
 
+        [TestMethod]
+        public void ReadFileContent_IfFileDoesNotExist_ThrowException()
+        {
+
+            // Arrange
+            string filePathWithExtension = "file1.txt";
+
+            _fileSystem.Setup(x => x.ReadTextFile(filePathWithExtension)).Throws(() => new FileNotFoundException("Could not find file"));
+
+            var paymentService = new PaymentService(_fileSystem.Object);
+            var result = paymentService.CalculateEmployeesSalary(filePathWithExtension);
+
+            Assert.AreEqual("Could not find file", result.Exception.InnerException.Message);
+        }
+
+        [TestMethod]
+        public void ReadFileContent_IfFileExtensionDoesntMatch_ThrowException()
+        {
+
+            // Arrange
+            string filePathWithExtension = "file1.pdf";
+
+            _fileSystem.Setup(x => x.ReadTextFile(filePathWithExtension)).Throws(() => new Exception("Incorrect File Format Supplied"));
+
+            var paymentService = new PaymentService(_fileSystem.Object);
+            var result = paymentService.CalculateEmployeesSalary(filePathWithExtension);
+
+            Assert.AreEqual("Incorrect File Format Supplied", result.Exception.InnerException.Message);
+        }
     }
 }

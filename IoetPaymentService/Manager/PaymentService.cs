@@ -61,7 +61,7 @@ namespace IoetPaymentService.Manager
                 }
                 return employeesPaymentRecord;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }

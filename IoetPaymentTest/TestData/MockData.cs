@@ -31,6 +31,18 @@ CYRIL=MO10:00-12:00,TU12:00-15:00,TH01:00-04:00,SA14:00-18:00,SU20:00-21:00";
             };
         }
 
+        public static Dictionary<string, decimal> EmployeesNameAndSalaryWrongValues()
+        {
+            return new Dictionary<string, decimal>
+            {
+                {"AKAN", 200 },
+                {"ROSCO", 80 },
+                {"BASH", 85 },
+                {"EDDIE", 95 },
+                {"CYRIL", 205 }
+            };
+        }
+
         public static FileNotFoundException Yeye()
         {
             throw new FileNotFoundException();
