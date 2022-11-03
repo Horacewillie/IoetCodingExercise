@@ -81,22 +81,18 @@ There is a .txt file (./Resource/EmployeesTestData.txt) that contains data. You 
 
 ## Solution
 
-The architecture imployed for this project is a microservice architecture, the code contains 4 projects inclusive of the test project depicting the sepeartion of different services
+The architecture imployed for this project is a microservice architecture, the code contains 4 projects inclusive of the test project depicting the seperation of
 
-as its done in a microservice architectured codebase. Solid principles is applied through out and also to prevent tight coupling interfaces was used.
+different services as its done in a microservice architectured codebase. Solid principles are applied through out and also to prevent tight coupling interfaces were used.
 
-The core solution was arrived at by first studying the the 2 test data set given. I noticed that weekend bonus was 5 dollars.
+The core solution was arrived at by first studying the 2 test data set given. I noticed that weekend bonus was 5 dollars.
 
-The data being housed in a text file was read using System.IO methods, iterated through and then splitted to obtain the relevant details (Day of the week, Name of Employee and  Time Intervals). 
+The data being housed in a text file was read using System.IO methods, iterated through and then splitted to obtain the relevant details (Day of the week, Name of Employee and  Time Intervals). Static Helper methods was created to handle the time interval calculation.
 
-Static Helper methods was created to handle the time interval calculation.
-
-The main result was housed in a Dictionary with key of type string for the name and value of type decimal for the pay.
+The main result was kept in a Dictionary with key of type string for the name and value of type decimal for the pay.
 
 After which, a simple iteration of  the Dictioanry object was done to extract the key and value appropriately.
 
 ## Contact Me
 
 Horace Saturday- horacewillie7@gmail.com
-
-
