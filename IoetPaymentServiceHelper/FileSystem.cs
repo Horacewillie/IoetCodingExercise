@@ -20,8 +20,7 @@ namespace IoetPaymentServiceBase
                 string[] dataInFile = await File.ReadAllLinesAsync(path);
                 return dataInFile;
             }
-            return new string[] { };
-            //throw new FileNotFoundException("Could not find file");
+            throw new FileNotFoundException("Could not find file");
         }
     }
 }

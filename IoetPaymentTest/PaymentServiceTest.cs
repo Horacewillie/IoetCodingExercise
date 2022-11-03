@@ -16,7 +16,9 @@ namespace IoetPaymentTest
     public class PaymentServiceTest
     {
         private readonly Mock<IFileSystem> _fileSystem;
+
         private readonly Mock<IPaymentService> _paymentService;
+        private readonly string filePath =  Path.Combine(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\", "./TestData/EmployeesTestData.txt");
 
         public PaymentServiceTest()
         {
@@ -31,7 +33,7 @@ namespace IoetPaymentTest
         }
 
         [TestMethod]
-        public void CalculateEmployeesSalary_ReturnCorrectValue()
+        public void CalculateEmployeesSalary_GivenCorrectFile_ReturnCorrectValue()
         {
            
             _paymentService.Setup(f => f.CalculateEmployeesSalary(It.IsAny<string>()).Result)
@@ -60,17 +62,16 @@ namespace IoetPaymentTest
 
 
         [TestMethod]
-        public void GivenThatCorrectFileNameIsSupplied_ReturnCorrectFileContent()
+        public void GivenThatCorrectFileNameIsSupplied_ReturnContent()
         {
-            _fileSystem.Setup(f => f.ReadTextFile(It.IsAny<string>())).Returns(MockData.EmployeesTestData());
+            //_fileSystem.Setup(f => f.ReadTextFile(It.IsAny<string>()).Result).Returns(MockData.EmployeesTestData().Result);
+
+            _fileSystem.Setup(x => x.ReadTextFile(It.IsAny<string>())).Returns(MockData.EmployeesTestData());
 
             var fileAccess = new FileSystem();
+            Task<string[]> result = _fileSystem.Object.ReadTextFile(It.IsAny<string>());
 
-            string[] response = fileAccess.ReadTextFile(It.IsAny<string>()).Result;
-
-            string[] result = _fileSystem.Object.ReadTextFile(It.IsAny<string>()).Result;
-
-            CollectionAssert.AreEqual(response, result);
+            Assert.IsNotNull(result.Result);
         }
 
     }
