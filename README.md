@@ -72,7 +72,7 @@ This project was build it with:
    dotnet restore
    ```
 3. Build
-   ``sh
+   ```sh
    dotnet build
    ```
 
