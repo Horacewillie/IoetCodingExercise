@@ -12,7 +12,7 @@ namespace IoetPaymentConsole
         {
             try
             {
-                //setup our DI
+                //setup our Dependency Injection 
                 var serviceProvider = new ServiceCollection()
                     .AddSingleton<IPaymentService, PaymentService>()
                     .AddSingleton<IFileSystem, FileSystem>()
