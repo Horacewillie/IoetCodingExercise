@@ -43,9 +43,14 @@ CYRIL=MO10:00-12:00,TU12:00-15:00,TH01:00-04:00,SA14:00-18:00,SU20:00-21:00";
             };
         }
 
-        public static FileNotFoundException Yeye()
+        public static FileNotFoundException FileNotFoundException()
         {
-            throw new FileNotFoundException();
+            return new FileNotFoundException("Could not find file");
+        }
+
+        public static Exception InvalidFileFormatException()
+        {
+            return  new FileNotFoundException("Incorrect File Format Supplied");
         }
 
     }

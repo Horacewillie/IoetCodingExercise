@@ -97,7 +97,7 @@ namespace IoetPaymentTest
             // Arrange
             string filePathWithExtension = "file1.txt";
 
-            _fileSystem.Setup(x => x.ReadTextFile(filePathWithExtension)).Throws(() => new FileNotFoundException("Could not find file"));
+            _fileSystem.Setup(x => x.ReadTextFile(filePathWithExtension)).Throws(MockData.FileNotFoundException());
 
             var paymentService = new PaymentService(_fileSystem.Object);
             var result = paymentService.CalculateEmployeesSalary(filePathWithExtension);
@@ -112,7 +112,7 @@ namespace IoetPaymentTest
             // Arrange
             string filePathWithExtension = "file1.pdf";
 
-            _fileSystem.Setup(x => x.ReadTextFile(filePathWithExtension)).Throws(() => new Exception("Incorrect File Format Supplied"));
+            _fileSystem.Setup(x => x.ReadTextFile(filePathWithExtension)).Throws(MockData.InvalidFileFormatException());
 
             var paymentService = new PaymentService(_fileSystem.Object);
             var result = paymentService.CalculateEmployeesSalary(filePathWithExtension);
