@@ -47,6 +47,7 @@ namespace IoetPaymentTest
             Task<Dictionary<string, decimal>> result = _paymentService.Object.CalculateEmployeesSalary(It.IsAny<string>());
 
             CollectionAssert.AreEquivalent(response.Result, result.Result);
+            CollectionAssert.AreEqual(response.Result, result.Result);
 
             Assert.AreEqual(result.Result.TryGetValue("AKAN", out decimal akan), response.Result.TryGetValue("AKAN", out decimal akanPay));
 
@@ -64,11 +65,9 @@ namespace IoetPaymentTest
         [TestMethod]
         public void GivenThatCorrectFileNameIsSupplied_ReturnContent()
         {
-            //_fileSystem.Setup(f => f.ReadTextFile(It.IsAny<string>()).Result).Returns(MockData.EmployeesTestData().Result);
 
             _fileSystem.Setup(x => x.ReadTextFile(It.IsAny<string>())).Returns(MockData.EmployeesTestData());
 
-            var fileAccess = new FileSystem();
             Task<string[]> result = _fileSystem.Object.ReadTextFile(It.IsAny<string>());
 
             Assert.IsNotNull(result.Result);
